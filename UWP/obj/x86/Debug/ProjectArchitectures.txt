@@ -1,0 +1,1 @@
+C:\Users\Eric\source\repos\xOfflineSync\UWP\xOfflineSync.UWP.csproj;x86
