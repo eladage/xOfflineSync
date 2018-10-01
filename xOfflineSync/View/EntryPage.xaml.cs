@@ -22,6 +22,9 @@ namespace xOfflineSync
                 };
                 refreshButton.Clicked += OnRefreshItems;
                 buttonsPanel.Children.Add(refreshButton);
+
+                //TODO: Write Users to Console for Debug on refresh...
+                Console.WriteLine();
                 if (manager.IsOfflineEnabled)
                 {
                     var syncButton = new Button
@@ -81,12 +84,12 @@ namespace xOfflineSync
                 // Not iOS - the swipe-to-delete is discoverable there
                 if (Device.RuntimePlatform == Device.Android)
                 {
-                    await DisplayAlert(user.Name, "Press-and-hold to complete task " + user.Name, "Got it!");
+                    await DisplayAlert(user.Name, "Press-and-hold to remove User" + user.Name, "Okaly Dokaly!");
                 }
                 else
                 {
                     // Windows, not all platforms support the Context Actions yet
-                    if (await DisplayAlert("Mark completed?", "Do you wish to complete " + user.Name + "?", "Complete", "Cancel"))
+                    if (await DisplayAlert("Delete User?", "Do you wish to delete " + user.Name + "?", "Delete", "Cancel"))
                     {
                         await CompleteItem(user);
                     }

@@ -43,17 +43,6 @@ namespace xOfflineSync
             get; set;
         }
 
-        [JsonProperty(PropertyName = "age")]
-        public string Age
-        {
-            get; set;
-        }
-
-        [JsonProperty(PropertyName = "sex")]
-        public char Sex
-        {
-            get; set;
-        }
 
 
 

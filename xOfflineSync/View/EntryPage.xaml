@@ -28,10 +28,6 @@
                   Placeholder="First Name" />
                     <Entry x:Name="lastName"
                   Placeholder="Last Name" />
-                    <Entry x:Name="sex"
-                  Placeholder="Sex" />
-                    <Entry x:Name="age"
-                  Placeholder="Age" />
                 </StackLayout>
        
                 <StackLayout x:Name="buttonsPanel" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
