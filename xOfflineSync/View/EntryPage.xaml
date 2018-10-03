@@ -15,7 +15,8 @@
                        IsEnabled="True"
                        x:Name="syncIndicator"/>
     <StackLayout Grid.Row="0" BackgroundColor="#5ABAFF" Padding="10,30,10,5">
-      <Label TextColor="#555555" Text="xOfflineSync" />
+            <!--<Image Source="View/jhawk.png" />-->
+            <Label TextColor="#555555" Text="xOfflineSync" />
         
         <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +24,7 @@
           <ColumnDefinition Width="Auto"/>
  
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                     <Entry x:Name="firstName"
                   Placeholder="First Name" />
                     <Entry x:Name="lastName"
@@ -48,7 +49,7 @@
               <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}"/>
             </ViewCell.ContextActions>
             <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Padding="15,5,0,0">
-              <StackLayout Padding="5,0,0,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
+              <StackLayout Padding="5,0,0,0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
                 <Label Text="{Binding FirstName}"  />
                                 <Label Text="{Binding LastName}" />
                             </StackLayout>

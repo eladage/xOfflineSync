@@ -6,35 +6,29 @@ namespace xOfflineSync
 {
 	public class Users
 	{
-		string id;
-		string name;
-		bool done;
 
 		[JsonProperty(PropertyName = "id")]
 		public string Id
 		{
-			get { return id; }
-			set { id = value;}
-		}
+            get; set;
+        }
 
 		[JsonProperty(PropertyName = "text")]
 		public string Name
 		{
-			get { return name; }
-			set { name = value;}
-		}
+            get; set;
+        }
 
-		[JsonProperty(PropertyName = "complete")]
+		[JsonProperty(PropertyName = "isDeleted")]
 		public bool Done
 		{
-			get { return done; }
-			set { done = value;}
+            get; set;
 		}
 
         [JsonProperty(PropertyName = "firstname")]
         public string FirstName
         {
-            get;set;
+            get; set;
         }
 
         [JsonProperty(PropertyName = "lastname")]
@@ -43,13 +37,7 @@ namespace xOfflineSync
             get; set;
         }
 
-
-
-
-
-
-
-
+        
 
         [Version]
         public string Version { get; set; }

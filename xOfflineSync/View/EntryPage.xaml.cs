@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace xOfflineSync
 {
@@ -23,8 +24,8 @@ namespace xOfflineSync
                 refreshButton.Clicked += OnRefreshItems;
                 buttonsPanel.Children.Add(refreshButton);
 
-                //TODO: Write Users to Console for Debug on refresh...
-                Console.WriteLine();
+                
+
                 if (manager.IsOfflineEnabled)
                 {
                     var syncButton = new Button
@@ -84,12 +85,12 @@ namespace xOfflineSync
                 // Not iOS - the swipe-to-delete is discoverable there
                 if (Device.RuntimePlatform == Device.Android)
                 {
-                    await DisplayAlert(user.Name, "Press-and-hold to remove User" + user.Name, "Okaly Dokaly!");
+                    await DisplayAlert(user.Name, "Press-and-hold to remove User" + user.FirstName + " " + user.LastName, "Okaly Dokaly!");
                 }
                 else
                 {
                     // Windows, not all platforms support the Context Actions yet
-                    if (await DisplayAlert("Delete User?", "Do you wish to delete " + user.Name + "?", "Delete", "Cancel"))
+                    if (await DisplayAlert("Delete User?", "Do you wish to delete " + user.FirstName + " " + user.LastName + "?", "Bye, Felicia", "Cancel"))
                     {
                         await CompleteItem(user);
                     }
@@ -140,6 +141,11 @@ namespace xOfflineSync
         public async void OnRefreshItems(object sender, EventArgs e)
         {
             await RefreshItems(true, false);
+            //TODO: Write Users to Console for Debug on refresh...
+
+            
+            //Debug.WriteLine(userList);
+
         }
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
@@ -152,8 +158,8 @@ namespace xOfflineSync
 
         private class ActivityIndicatorScope : IDisposable
         {
-            private bool showIndicator;
-            private ActivityIndicator indicator;
+            private readonly bool showIndicator;
+            private readonly ActivityIndicator indicator;
             private Task indicatorDelay;
 
             public ActivityIndicatorScope(ActivityIndicator indicator, bool showIndicator)
