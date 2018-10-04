@@ -46,7 +46,7 @@
         <DataTemplate>
           <ViewCell>
             <ViewCell.ContextActions>
-              <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}"/>
+              <MenuItem Clicked="OnComplete" Text="Delete" CommandParameter="{Binding .}"/>
             </ViewCell.ContextActions>
             <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Padding="15,5,0,0">
               <StackLayout Padding="5,0,0,0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">

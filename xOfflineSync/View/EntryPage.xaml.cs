@@ -85,7 +85,7 @@ namespace xOfflineSync
                 // Not iOS - the swipe-to-delete is discoverable there
                 if (Device.RuntimePlatform == Device.Android)
                 {
-                    await DisplayAlert(user.Name, "Press-and-hold to remove User" + user.FirstName + " " + user.LastName, "Okaly Dokaly!");
+                    await DisplayAlert(user.Name, "Press-and-hold to remove User " + user.FirstName + " " + user.LastName, "Okaly Dokaly!");
                 }
                 else
                 {
