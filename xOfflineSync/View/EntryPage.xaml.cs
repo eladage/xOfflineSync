@@ -112,8 +112,13 @@ namespace xOfflineSync
         // http://developer.xamarin.com/guides/cross-platform/xamarin-forms/working-with/listview/#pulltorefresh
         public async void OnRefresh(object sender, EventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+
             var list = (ListView)sender;
             Exception error = null;
+
             try
             {
                 await RefreshItems(false, true);
@@ -125,6 +130,12 @@ namespace xOfflineSync
             finally
             {
                 list.EndRefresh();
+
+                if (sw.ElapsedMilliseconds > 10000)
+                {
+                    await DisplayAlert("Refresh timeout", "Connection issue, saving locally\nReconnect to network and try again to sync", "OK");
+                }
+                    
             }
 
             if (error != null)
@@ -140,13 +151,13 @@ namespace xOfflineSync
 
         public async void OnRefreshItems(object sender, EventArgs e)
         {
+  
             await RefreshItems(true, false);
-            //TODO: Write Users to Console for Debug on refresh...
-
             
-            //Debug.WriteLine(userList);
+            Debug.WriteLine(userList);
 
         }
+
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
         {
@@ -193,5 +204,7 @@ namespace xOfflineSync
             }
         }
     }
+
+
 }
 
