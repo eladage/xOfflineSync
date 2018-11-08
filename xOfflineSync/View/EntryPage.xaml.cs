@@ -129,12 +129,13 @@ namespace xOfflineSync
             }
             finally
             {
-                list.EndRefresh();
 
-                if (sw.ElapsedMilliseconds > 10000)
+                if (sw.ElapsedMilliseconds > 20000)
                 {
-                    await DisplayAlert("Refresh timeout", "Connection issue, saving locally\nReconnect to network and try again to sync", "OK");
+                    await DisplayAlert("Refresh timeout", "Connection issue\nReconnect to network and try again to complete sync", "OK");
                 }
+
+                list.EndRefresh();
                     
             }
 
@@ -163,7 +164,14 @@ namespace xOfflineSync
         {
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                userList.ItemsSource = await manager.GetUsersAsync(syncItems);
+                try
+                {
+                    userList.ItemsSource = await manager.GetUsersAsync(syncItems);
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Refresh timeout", "Connection issue\nReconnect to network to enable sync\n(Can still save data locally)", "OK");
+                }
             }
         }
 
