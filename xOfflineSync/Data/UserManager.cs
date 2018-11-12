@@ -129,13 +129,29 @@ namespace xOfflineSync
 
             try
             {
-                await this.client.SyncContext.PushAsync();
-
-                await this.userTable.PullAsync(
+                try
+                {
+                    await this.client.SyncContext.PushAsync();
+                }
+                catch
+                {
+                    Debug.WriteLine("Failed on PushAsync");
+                    throw;
+                }
+                try
+                {
+                    await this.userTable.PullAsync(
                     //The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
                     //Use a different query name for each unique query in your program
                     "allUsers",
                     this.userTable.CreateQuery());
+                }
+                catch
+                {
+                    Debug.WriteLine("Failed on PullAsync");
+                    throw;
+                }
+                
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -143,8 +159,10 @@ namespace xOfflineSync
                 {
                     syncErrors = exc.PushResult.Errors;
                     Debug.WriteLine("Error: " + syncErrors);
-                    throw;
+                    
                 }
+                Debug.WriteLine("Failed on MobileServicePushFailedException");
+                throw;
             }
 
             // Simple error/conflict handling. A real application would handle the various errors like network conditions,

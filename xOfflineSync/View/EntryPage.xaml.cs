@@ -129,14 +129,7 @@ namespace xOfflineSync
             }
             finally
             {
-
-                if (sw.ElapsedMilliseconds > 20000)
-                {
-                    await DisplayAlert("Refresh timeout", "Connection issue\nReconnect to network and try again to complete sync", "OK");
-                }
-
-                list.EndRefresh();
-                    
+                list.EndRefresh();       
             }
 
             if (error != null)
@@ -168,7 +161,7 @@ namespace xOfflineSync
                 {
                     userList.ItemsSource = await manager.GetUsersAsync(syncItems);
                 }
-                catch (Exception ex)
+                catch
                 {
                     await DisplayAlert("Refresh timeout", "Connection issue\nReconnect to network to enable sync\n(Can still save data locally)", "OK");
                 }
