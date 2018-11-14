@@ -31,10 +31,15 @@
                   Placeholder="Last Name" />
                 </StackLayout>
        
-                <StackLayout x:Name="buttonsPanel" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                <StackLayout x:Name="buttonsPanel" Grid.Column="2" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
           <Button Text="Add"
                   MinimumHeightRequest="30"
                   Clicked="OnAdd" />
+                  <Button Text ="Connection"
+                    MinimumHeightRequest="30"
+                    Clicked="OnConnection"
+                    />
+                          
         </StackLayout>
       </Grid>
     </StackLayout>

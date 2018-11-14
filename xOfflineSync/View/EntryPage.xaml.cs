@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
+using Plugin.Connectivity;
 
 namespace xOfflineSync
 {
@@ -61,8 +62,22 @@ namespace xOfflineSync
             userList.ItemsSource = await manager.GetUsersAsync();
         }
 
+        public async void OnConnection(object sender, EventArgs e)
+        {
+            if (CrossConnectivity.Current.IsConnected == false)
+            {
+                await DisplayAlert("Connection Error", "You are offline", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Connection Success", "You are online", "OK");
+            }
+        }
+
+
         public async void OnAdd(object sender, EventArgs e)
         {
+
             var user = new Users {
                 FirstName   = firstName.Text,
                 LastName    = lastName.Text
@@ -112,6 +127,8 @@ namespace xOfflineSync
         // http://developer.xamarin.com/guides/cross-platform/xamarin-forms/working-with/listview/#pulltorefresh
         public async void OnRefresh(object sender, EventArgs e)
         {
+            
+            
             var list = (ListView)sender;
             Exception error = null;
             try
@@ -136,16 +153,15 @@ namespace xOfflineSync
         public async void OnSyncItems(object sender, EventArgs e)
         {
             await RefreshItems(true, true);
+            if (CrossConnectivity.Current.IsConnected == false)
+            {
+                await DisplayAlert("Connection Error", "You are offline\nReconnect and try again to sync", "OK");
+            }
         }
 
         public async void OnRefreshItems(object sender, EventArgs e)
         {
             await RefreshItems(true, false);
-            //TODO: Write Users to Console for Debug on refresh...
-
-            
-            //Debug.WriteLine(userList);
-
         }
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
