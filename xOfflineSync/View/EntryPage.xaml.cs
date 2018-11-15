@@ -57,7 +57,7 @@ namespace xOfflineSync
 
             if (CrossConnectivity.Current.IsConnected == true)
             {
-                connectionStatus = "Online";
+                connectionStatus = "Online ✓";
 
                 connectionColor = Color.Green;
 
@@ -65,7 +65,7 @@ namespace xOfflineSync
             }
             else if (CrossConnectivity.Current.IsConnected == false)
             {
-                connectionStatus = "Offline";
+                connectionStatus = "Offline ❌";
 
                 connectionColor = Color.Red;
             }
@@ -116,14 +116,14 @@ namespace xOfflineSync
             {
                 await DisplayAlert("Connection Error", "You are offline", "OK");
                 var connectionButton = sender as Button;
-                connectionButton.Text = "Offline";
+                connectionButton.Text = "Offline ❌";
                 connectionButton.TextColor = Color.Red;
             }
             else
             {
                 await DisplayAlert("Connection Success", "You are online", "OK");
                 var connectionButton = sender as Button;
-                connectionButton.Text = "Online";
+                connectionButton.Text = "Online ✓";
                 connectionButton.TextColor = Color.Green;
 
             }
