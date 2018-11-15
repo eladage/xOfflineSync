@@ -150,25 +150,38 @@ namespace xOfflineSync
             }
         }
 
-        public async void OnSyncItems(object sender, EventArgs e)
+        public async void OfflineCheck()
         {
-            await RefreshItems(true, true);
             if (CrossConnectivity.Current.IsConnected == false)
             {
                 await DisplayAlert("Connection Error", "You are offline\nReconnect and try again to sync", "OK");
             }
         }
+        public async void OnSyncItems(object sender, EventArgs e)
+        {
+            await RefreshItems(true, true);
+            OfflineCheck();
+        }
 
         public async void OnRefreshItems(object sender, EventArgs e)
         {
             await RefreshItems(true, false);
+            OfflineCheck();
         }
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
         {
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                userList.ItemsSource = await manager.GetUsersAsync(syncItems);
+                try
+                {
+                    userList.ItemsSource = await manager.GetUsersAsync(syncItems);
+                }
+                catch
+                {
+                    OfflineCheck();
+                }
+                
             }
         }
 

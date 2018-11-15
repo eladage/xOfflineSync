@@ -98,6 +98,7 @@ namespace xOfflineSync
             catch (Exception e)
             {
                 Debug.WriteLine("Sync error: {0}", new[] { e.Message });
+                throw;
             }
             return null;
         }
