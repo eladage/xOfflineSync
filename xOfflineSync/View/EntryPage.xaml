@@ -34,11 +34,9 @@
                 <StackLayout x:Name="buttonsPanel" Grid.Column="2" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
           <Button Text="Add"
                   MinimumHeightRequest="30"
+                  BackgroundColor="Default"
                   Clicked="OnAdd" />
-                  <Button Text ="Connection"
-                    MinimumHeightRequest="30"
-                    Clicked="OnConnection"
-                    />
+                 
                           
         </StackLayout>
       </Grid>

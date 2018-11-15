@@ -9,18 +9,24 @@ namespace xOfflineSync
     public partial class UserList : ContentPage
     {
         UserManager manager;
-
+        
         public UserList()
         {
             InitializeComponent();
 
             manager = UserManager.DefaultManager;
+
+            string connectionStatus = "";
+
+            
+
             if (Device.RuntimePlatform == Device.UWP)
             {
                 var refreshButton = new Button
                 {
                     Text = "Refresh",
-                    HeightRequest = 30
+                    HeightRequest = 30,
+                    BackgroundColor = Color.Default
                 };
                 refreshButton.Clicked += OnRefreshItems;
                 buttonsPanel.Children.Add(refreshButton);
@@ -29,15 +35,57 @@ namespace xOfflineSync
 
                 if (manager.IsOfflineEnabled)
                 {
+                    
+
                     var syncButton = new Button
                     {
                         Text = "Sync items",
-                        HeightRequest = 30
+                        HeightRequest = 30,
+                        BackgroundColor = Color.Default
                     };
                     syncButton.Clicked += OnSyncItems;
                     buttonsPanel.Children.Add(syncButton);
+
+                    
+
                 }
             }
+
+            // Offline button displays connection status
+
+            Color connectionColor = Color.CornflowerBlue;
+
+            if (CrossConnectivity.Current.IsConnected == true)
+            {
+                connectionStatus = "Online";
+
+                connectionColor = Color.Green;
+
+
+            }
+            else if (CrossConnectivity.Current.IsConnected == false)
+            {
+                connectionStatus = "Offline";
+
+                connectionColor = Color.Red;
+            }
+            else
+            {
+                connectionStatus = "Unknown";
+            }
+
+
+            var connectionButton = new Button
+            {
+                Text = connectionStatus,
+                HeightRequest = 5,
+                TextColor = connectionColor,
+                FontAttributes = FontAttributes.Bold
+            };
+            connectionButton.Clicked += OnConnection;
+            buttonsPanel.Children.Add(connectionButton);
+
+
         }
 
         protected override async void OnAppearing()
@@ -67,10 +115,17 @@ namespace xOfflineSync
             if (CrossConnectivity.Current.IsConnected == false)
             {
                 await DisplayAlert("Connection Error", "You are offline", "OK");
+                var connectionButton = sender as Button;
+                connectionButton.Text = "Offline";
+                connectionButton.TextColor = Color.Red;
             }
             else
             {
                 await DisplayAlert("Connection Success", "You are online", "OK");
+                var connectionButton = sender as Button;
+                connectionButton.Text = "Online";
+                connectionButton.TextColor = Color.Green;
+
             }
         }
 
@@ -157,6 +212,8 @@ namespace xOfflineSync
                 await DisplayAlert("Connection Error", "You are offline\nReconnect and try again to sync", "OK");
             }
         }
+
+
         public async void OnSyncItems(object sender, EventArgs e)
         {
             await RefreshItems(true, true);
